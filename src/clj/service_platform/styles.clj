@@ -47,6 +47,7 @@
 
   [:button {:font-size "20px"
             :width "200px"
+            :margin-right "20px"
             :color "white"
             :shadow "none"
             :border "1px dotted white"

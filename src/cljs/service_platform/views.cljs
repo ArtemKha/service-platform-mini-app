@@ -30,7 +30,8 @@
       [form-item "Assignee"]
       [form-item "Applicant"]
       [form-item "Date" {:pattern #"[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}"}]
-      [:button "Submit"]]]))
+      [:a {:href "#/"} [:button "Back"]
+       [:button "Save"]]]]))
 
 (defn list-panel []
   (let [name (re-frame/subscribe [:name])]
