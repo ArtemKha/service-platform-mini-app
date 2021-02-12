@@ -6,3 +6,8 @@
  :initialize-db
  (fn  [_ _]
    db/default-db))
+
+(re-frame/reg-event-db
+ ::set-panel
+ (fn [db [_ panel]]
+   (assoc db :panel panel)))

@@ -14,3 +14,5 @@ figwheel_server.log
 pom.xml
 pom.xml.asc
 /dev-target
+.clj-kondo
+sqlite.db

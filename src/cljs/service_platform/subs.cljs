@@ -6,3 +6,8 @@
  :name
  (fn [db]
    (:name db)))
+
+(re-frame/reg-sub
+ ::panel
+ (fn [db _]
+   (:panel db)))

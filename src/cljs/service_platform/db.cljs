@@ -1,4 +1,4 @@
 (ns service-platform.db)
 
 (def default-db
-  {:name "re-frame"})
+  {:name "re-frame" :panel :home})

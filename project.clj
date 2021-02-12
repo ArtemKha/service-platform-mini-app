@@ -18,6 +18,7 @@
                  [org.clojure/tools.namespace "0.2.11"]
                  [compojure "1.6.1"]
                  [re-frame "0.10.6"]
+                 [clj-commons/secretary "1.2.4"]
                  [lambdaisland/garden-watcher "0.3.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
