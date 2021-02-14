@@ -1,5 +1,5 @@
 (ns user
-  (:require [service-platform.application]
+  (:require [service-platform.server]
             [com.stuartsierra.component :as component]
             [figwheel-sidecar.config :as fw-config]
             [figwheel-sidecar.system :as fw-sys]
@@ -13,13 +13,13 @@
 
 (defn dev-system []
   (let [config (config)]
-    (assoc (service-platform.application/app-system config)
+    (assoc (service-platform.server/app-system config)
            :middleware (new-middleware
                         {:middleware (into [[wrap-file "dev-target/public"]]
                                            (:middleware config))})
            :figwheel-system (fw-sys/figwheel-system (fw-config/fetch-config))
            :css-watcher (fw-sys/css-watcher {:watch-paths ["resources/public/css"]})
-    :garden-watcher (new-garden-watcher ['service-platform.styles]))))
+           :garden-watcher (new-garden-watcher ['service-platform.styles]))))
 
 (reloaded.repl/set-init! #(dev-system))
 

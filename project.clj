@@ -19,6 +19,10 @@
                  [compojure "1.6.1"]
                  [re-frame "0.10.6"]
                  [clj-commons/secretary "1.2.4"]
+                 [prismatic/schema "1.1.9"]
+                 [ring/ring-jetty-adapter "1.6.3"]
+                 [toucan "1.1.9"]
+                 [org.postgresql/postgresql "42.2.4"]
                  [lambdaisland/garden-watcher "0.3.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
@@ -35,7 +39,7 @@
   :uberjar-name "service-platform.jar"
 
   ;; Use `lein run` if you just want to start a HTTP server, without figwheel
-  :main service-platform.application
+  :main service-platform.server
 
   ;; nREPL by default starts in the :main namespace, we want to start in `user`
   ;; because that's where our development helper functions like (go) and
