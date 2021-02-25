@@ -22,6 +22,7 @@
                  [prismatic/schema "1.1.9"]
                  [ring/ring-jetty-adapter "1.6.3"]
                  [toucan "1.1.9"]
+                 [metosin/compojure-api "2.0.0-alpha26"]
                  [org.postgresql/postgresql "42.2.4"]
                  [lambdaisland/garden-watcher "0.3.3"]]
 

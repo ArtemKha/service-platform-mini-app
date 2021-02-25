@@ -9,7 +9,7 @@
             [toucan.db :as db]
             [service-platform.modules.application.handler :refer [application-routes]]
             [system.components.jetty :refer [new-web-server]]
-             ;[service-platform.routes :refer [home-routes]]
+            [service-platform.routes :refer [home-routes]]
             [service-platform.config :refer [config]]))
 
 
@@ -27,13 +27,14 @@
 
 (defn app-system [config]
   (component/system-map
-    :routes (new-endpoint application-routes)
-    :middleware (new-middleware {:middleware (:middleware config)})
-    :handler (-> (new-handler)
-                 (component/using [:routes :middleware]))
-    :http (-> (new-web-server (:http-port config))
-              (component/using [:handler]))
-    :server-info (server-info (:http-port config))))
+   :site-middleware (new-middleware {:middleware (:site-middleware config)})
+   :api-middleware (new-middleware {:middleware (:api-middleware config)})
+   :site-routes (component/using (new-endpoint home-routes) [:site-middleware])
+   :api-routes (component/using (new-endpoint application-routes) [:api-middleware])
+   :handler (component/using (new-handler) [:api-routes :site-routes :middleware])
+   :http (-> (new-web-server (:http-port config))
+             (component/using [:handler]))
+   :server-info (server-info (:http-port config))))
 
 (db/set-default-db-connection! db-spec)
 (models/set-root-namespace! 'service-platform.models)

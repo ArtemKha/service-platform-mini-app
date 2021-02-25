@@ -4,6 +4,7 @@
             [service-platform.modules.application.model :refer [Application]]
             [service-platform.utils :refer [length-in-range?]]))
 
+;; TODO: validate input
 (defn valid? [str]
   (length-in-range? 1 255 str))
 
