@@ -8,7 +8,8 @@
 
 
 (defn list-panel []
-  (let [name (re-frame/subscribe [:name])]
+  (let [applications (re-frame/subscribe [::subs/applications])]
+    (.log js/Console applications)
     (fn []
       [:div {:class "background"}
        [:div {:class "wrap"}
