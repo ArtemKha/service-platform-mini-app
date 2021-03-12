@@ -23,7 +23,7 @@
   {:dbtype "postgres"
    :dbname "service-db"
    :user "postgres"
-   :password ""})
+   :password "1234"})
 
 (defn app-system [config]
   (component/system-map

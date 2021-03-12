@@ -20,12 +20,11 @@
 (defn app-routes []
   (secretary/set-config! :prefix "#")
   (defroute "/" []
-    (re-frame/dispatch [::events/set-panel :home]))
-
-
+    (re-frame/dispatch [::events/set-panel :home {}]))
+  (defroute "/form/:id" [id]
+    (re-frame/dispatch [::events/set-panel :form {:id (js/parseInt id)}]))
   (defroute "/form" []
-    (re-frame/dispatch [::events/set-panel :form]))
-
+    (re-frame/dispatch [::events/set-panel :form {}]))
 
   ;; --------------------
   (hook-browser-navigation!))

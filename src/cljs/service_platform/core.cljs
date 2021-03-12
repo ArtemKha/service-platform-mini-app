@@ -22,5 +22,6 @@
 (defn render []
   (routes/app-routes)
   (re-frame/dispatch-sync [:initialize-db])
+  (re-frame/dispatch-sync [:get-all-apllications])
   (dev-setup)
   (mount-root))

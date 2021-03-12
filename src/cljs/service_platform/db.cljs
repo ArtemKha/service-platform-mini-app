@@ -3,5 +3,5 @@
 (def default-db
   {:name "re-frame"
    :loading? false
-   :panel :home
+   :panel {:id :home :params {}}
    :applications []})

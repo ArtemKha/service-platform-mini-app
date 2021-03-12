@@ -10,7 +10,7 @@
 (re-frame/reg-sub
  ::applications
  (fn [db _]
-   (:name db)))
+   (:applications db)))
 
 (re-frame/reg-sub
  ::panel

@@ -22,7 +22,7 @@
            :vertical-align "middle"}]
 
   [".wrap div" {:position "relative"
-                :margin "50px 0"}]
+                :margin "30px 0"}]
 
   [:label {:position "absolute"
            :top "0"
@@ -44,6 +44,13 @@
                        :color "white"}]
 
   ["input[type=text]" :focus {:outline "none"}]
+
+  [:.list-item 
+  {:color "inherit"
+      :text-decoration "none"}
+      [:&:hover {
+            :border-bottom "2px dotted white"
+            :cursor "pointer"}]]
 
   [:button {:font-size "20px"
             :width "200px"
