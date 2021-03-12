@@ -24,6 +24,8 @@
                  [toucan "1.1.9"]
                  [metosin/compojure-api "2.0.0-alpha26"]
                  [org.postgresql/postgresql "42.2.4"]
+                 [cljs-ajax "0.7.5"]
+                 [day8.re-frame/http-fx "0.2.3"]
                  [lambdaisland/garden-watcher "0.3.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
@@ -54,6 +56,9 @@
                 :figwheel {:on-jsload "service-platform.system/reset"}
 
                 :compiler {:main cljs.user
+                           :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+                           :preloads [day8.re-frame-10x.preload]
+                           :optimizations :none
                            :asset-path "js/compiled/out"
                            :output-to "dev-target/public/js/compiled/service_platform.js"
                            :output-dir "dev-target/public/js/compiled/out"
@@ -111,6 +116,7 @@
                              [cider/piggieback "0.4.0"]
                              [cider/cider-nrepl "0.18.0"]
                              [lein-doo "0.1.11"]
+                             [day8.re-frame/re-frame-10x "1.0.1"]
                              [reloaded.repl "0.2.4"]]
 
               :plugins [[lein-figwheel "0.5.18"]
