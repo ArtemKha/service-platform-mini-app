@@ -45,12 +45,13 @@
 
   ["input[type=text]" :focus {:outline "none"}]
 
-  [:.list-item 
-  {:color "inherit"
-      :text-decoration "none"}
-      [:&:hover {
-            :border-bottom "2px dotted white"
-            :cursor "pointer"}]]
+  [:.list-item
+   {:color "inherit"
+    :text-decoration "none"}
+   [:&:hover {:border-bottom "2px dotted white"
+              :cursor "pointer"}]]
+  
+  [:.list-item-attr {:padding-right "5px"}]
 
   [:button {:font-size "20px"
             :width "200px"
@@ -59,4 +60,5 @@
             :shadow "none"
             :border "1px dotted white"
             :outline "none !important"
-            :background-color "transparent"}])
+            :background-color "transparent"}
+   [:&:hover {:border "1px solid white"}]])

@@ -7,7 +7,12 @@
 (defn list-item [application]
   [:div {:key (:id application)}
    [:a { :href (str "#/form/" (:id application)) :class "list-item"} 
-    [:span (str application)]]])
+    [:span.list-item-attr [:strong "Title: "] (:title application)]
+    [:span.list-item-attr [:strong "Description: "] (:description application)]
+    [:span.list-item-attr [:strong "Assignee: "] (:assignee application)]
+    [:span.list-item-attr [:strong "Applicant: "] (:applicant application)]
+    [:span.list-item-attr [:strong "Date: "] (:date application)]
+    ]])
 
 
 (defn list-panel []
@@ -16,8 +21,10 @@
       [:div {:class "background"}
        [:div {:class "wrap"}
         [:h1 "Service Platform"]
-        [:h3 "Your way to create Szechuan sauce"]
-        (map list-item @applications)
+        [:h3 "The most unique way to manage applications"]
+        (if (> (count @applications) 0)
+          (map list-item @applications)
+          [:div "No applications yet. Feel free to add a new one."])
         [:a {:href "#/form"}
          [:button "Create application"]]]])))
 
@@ -29,7 +36,6 @@
     [:div]))
 
 (defn show-panel [panel]
-  (println (str "panel" panel))
   [panels (:id panel)])
 
 (defn main-panel []

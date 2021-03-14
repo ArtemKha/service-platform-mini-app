@@ -17,3 +17,29 @@
                  :on-success      [::events/on-get-all-apllications]
                  :on-failure      [::events/on-bad-response]}
     :db  (assoc db :loading? true)}))
+
+(reg-event-fx
+ :create-apllication
+ (fn
+   [{db :db} applicaton]
+   {:http-xhrio {:method          :post
+                 :uri             application-path
+                 :body            applicaton
+                 :format          (ajax/json-request-format)
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success      [::events/on-create-apllication]
+                 :on-failure      [::events/on-bad-response]}
+    :db  (assoc db :loading? true)}))
+
+(reg-event-fx
+ :update-apllication
+ (fn
+   [{db :db} id applicaton]
+   {:http-xhrio {:method          :put
+                 :uri             (str application-path "/" id)
+                 :body            applicaton
+                 :format          (ajax/json-request-format)
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success      [::events/on-update-apllication]
+                 :on-failure      [::events/on-bad-response]}
+    :db  (assoc db :loading? true)}))

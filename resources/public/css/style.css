@@ -69,6 +69,10 @@ input[type=text], focus {
   cursor: pointer;
 }
 
+.list-item-attr {
+  padding-right: 5px;
+}
+
 button {
   font-size: 20px;
   width: 200px;
@@ -78,4 +82,8 @@ button {
   border: 1px dotted white;
   outline: none !important;
   background-color: transparent;
+}
+
+button:hover {
+  border: 1px solid white;
 }
