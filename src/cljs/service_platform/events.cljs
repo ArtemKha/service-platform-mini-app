@@ -1,5 +1,6 @@
 (ns service-platform.events
-  (:require [re-frame.core :as re-frame]
+  (:require [service-platform.common :as common]
+            [re-frame.core :as re-frame]
             [service-platform.db :as db]))
 
 (re-frame/reg-event-db
@@ -9,12 +10,27 @@
 
 (re-frame/reg-event-db
  ::on-get-all-apllications
- (fn [db [_ applications]]
-   (assoc db :applications applications)))
+ (fn [db [_ response]]
+   (assoc db :applications (:body response))))
 
 (re-frame/reg-event-db
  ::on-bad-response (fn [db [_ _]]
-                    (assoc db :applications [])))
+                     (assoc db :applications [])))
+
+(re-frame/reg-event-db
+ ::on-create-apllication
+ (fn [db [_ response]]
+   (update-in db [:applications] conj (:body response))))
+
+(re-frame/reg-event-db
+ ::on-update-apllication
+ (fn [db [_ id response]]
+   (update-in db [:applications] (common/swap-by-id id (:body response)))))
+
+(re-frame/reg-event-db
+ ::on-delete-apllication
+ (fn [db [_ id]]
+   (update-in db [:applications] (common/filter-by-id id))))
 
 (re-frame/reg-event-db
  ::set-panel

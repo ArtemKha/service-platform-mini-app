@@ -21,6 +21,9 @@
            :transform "translate(-50%, -50%)"
            :vertical-align "middle"}]
 
+  [:.list {:max-height "500px"
+           :overflow-y "auto"}]
+
   [".wrap div" {:position "relative"
                 :margin "30px 0"}]
 
@@ -42,20 +45,20 @@
                        :font-size "16px"
                        :background-color "teal"
                        :color "white"}]
+  ["input::placeholder" {:color "#f5f5f5"}]
 
   ["input[type=text]" :focus {:outline "none"}]
 
   [:.list-item
    {:color "inherit"
     :text-decoration "none"}
+   [:span {:padding-right "5px"}]
    [:&:hover {:border-bottom "2px dotted white"
               :cursor "pointer"}]]
-  
-  [:.list-item-attr {:padding-right "5px"}]
 
-  [:button {:font-size "20px"
-            :width "200px"
-            :margin-right "20px"
+  [:button {:font-size "18px"
+            :width "150px"
+            :margin-right "10px"
             :color "white"
             :shadow "none"
             :border "1px dotted white"

@@ -6,8 +6,14 @@
 
 (def application-path "http://localhost:10555/api/applications")
 
+(defn generate-form-data [params]
+  (let [form-data (js/FormData.)]
+    (doseq [[key value] params]
+      (.append form-data (name key) value))
+    form-data))
+
 (reg-event-fx
- :get-all-apllications
+ ::get-all-apllications
  (fn
    [{db :db} _]
    {:http-xhrio {:method          :get
@@ -19,12 +25,12 @@
     :db  (assoc db :loading? true)}))
 
 (reg-event-fx
- :create-apllication
+ ::create-apllication
  (fn
-   [{db :db} applicaton]
+   [{db :db} [_ applicaton]]
    {:http-xhrio {:method          :post
                  :uri             application-path
-                 :body            applicaton
+                 :body            (generate-form-data applicaton)
                  :format          (ajax/json-request-format)
                  :response-format (ajax/json-response-format {:keywords? true})
                  :on-success      [::events/on-create-apllication]
@@ -32,14 +38,26 @@
     :db  (assoc db :loading? true)}))
 
 (reg-event-fx
- :update-apllication
+ ::update-apllication
  (fn
-   [{db :db} id applicaton]
+   [{db :db} [_ id applicaton]]
    {:http-xhrio {:method          :put
                  :uri             (str application-path "/" id)
-                 :body            applicaton
+                 :body            (generate-form-data applicaton)
                  :format          (ajax/json-request-format)
                  :response-format (ajax/json-response-format {:keywords? true})
-                 :on-success      [::events/on-update-apllication]
+                 :on-success      [::events/on-update-apllication id]
+                 :on-failure      [::events/on-bad-response]}
+    :db  (assoc db :loading? true)}))
+
+(reg-event-fx
+ ::delete-apllication
+ (fn
+   [{db :db} [_ id]]
+   {:http-xhrio {:method          :delete
+                 :uri             (str application-path "/" id)
+                 :format          (ajax/json-request-format)
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success      [::events/on-delete-apllication id]
                  :on-failure      [::events/on-bad-response]}
     :db  (assoc db :loading? true)}))

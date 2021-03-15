@@ -3,6 +3,7 @@
             [re-frame.core :as re-frame]
             [service-platform.events]
             [service-platform.subs]
+            [service-platform.actions :as actions]
             [service-platform.routes :as routes]
             [service-platform.views :as views]
             [service-platform.config :as config]))
@@ -22,6 +23,6 @@
 (defn render []
   (routes/app-routes)
   (re-frame/dispatch-sync [:initialize-db])
-  (re-frame/dispatch-sync [:get-all-apllications])
+  (re-frame/dispatch-sync [::actions/get-all-apllications])
   (dev-setup)
   (mount-root))

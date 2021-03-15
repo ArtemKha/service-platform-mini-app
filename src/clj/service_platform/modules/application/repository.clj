@@ -1,9 +1,8 @@
 (ns service-platform.modules.application.repository
-  (:require
-   [service_platform.db :as s-db]
-   [ring.util.http-response :refer [ok not-found created]]
-   [service-platform.modules.application.model :refer [Application]]
-   [service-platform.utils :refer [length-in-range?]]))
+  (:require [service_platform.db :as s-db]
+            [ring.util.http-response :refer [ok not-found created]]
+            [service-platform.modules.application.model :refer [Application]]
+            [service-platform.utils :refer [length-in-range?]]))
 
 ;; TODO: validate input
 (defn valid? [str]
@@ -33,8 +32,8 @@
 
 ;; Update
 (defn update-application-handler [id update-application-req]
-  (s-db/update! Application id update-application-req)
-  (ok))
+  (-> (s-db/update! Application id update-application-req)
+      (ok)))
 
 ;; Delete
 (defn delete-application-handler [application-id]

@@ -1,4 +1,5 @@
-(ns service_platform.db)
+(ns service_platform.db
+  (:require [service-platform.common :as common]))
 
 (def initial-applications [{:id 1
                             :title "Title #1"
@@ -24,18 +25,15 @@
     new-record))
 
 ;; DELETE
-(defn filter-by-id [record-id]
-  (fn [records] (filter #(not= (:id %) record-id) records)))
 (defn delete! [model record-id]
   (logger "The record with id" record-id "was deleted (if ever existed).")
-  (swap! service-db update-in [model] (filter-by-id record-id)))
+  (swap! service-db update-in [model] (common/filter-by-id record-id)))
 
 ;; UPDATE
-(defn swap-by-id [record-id new-record]
-  (fn [records] (map #(if (= (:id %) record-id) (assoc new-record :id (:id %)) %) records)))
 (defn update! [model record-id new-record]
   (logger "The record was updated: " new-record)
-  (swap! service-db update-in [model] (swap-by-id record-id new-record)))
+  (swap! service-db update-in [model] (common/swap-by-id record-id new-record))
+  new-record)
 
 ;; SELECT
 (defn select [model]

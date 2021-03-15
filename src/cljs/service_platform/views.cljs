@@ -6,13 +6,12 @@
 
 (defn list-item [application]
   [:div {:key (:id application)}
-   [:a { :href (str "#/form/" (:id application)) :class "list-item"} 
-    [:span.list-item-attr [:strong "Title: "] (:title application)]
-    [:span.list-item-attr [:strong "Description: "] (:description application)]
-    [:span.list-item-attr [:strong "Assignee: "] (:assignee application)]
-    [:span.list-item-attr [:strong "Applicant: "] (:applicant application)]
-    [:span.list-item-attr [:strong "Date: "] (:date application)]
-    ]])
+   [:a {:href (str "#/form/" (:id application)) :class "list-item"}
+    [:span [:strong "Title: "] (:title application)]
+    [:span [:strong "Description: "] (:description application)]
+    [:span [:strong "Assignee: "] (:assignee application)]
+    [:span [:strong "Applicant: "] (:applicant application)]
+    [:span [:strong "Date: "] (:date application)]]])
 
 
 (defn list-panel []
@@ -23,10 +22,10 @@
         [:h1 "Service Platform"]
         [:h3 "The most unique way to manage applications"]
         (if (> (count @applications) 0)
-          (map list-item @applications)
+          [:div.list (map list-item @applications)]
           [:div "No applications yet. Feel free to add a new one."])
         [:a {:href "#/form"}
-         [:button "Create application"]]]])))
+         [:button "Create"]]]])))
 
 
 (defn- panels [panel-id]

@@ -25,6 +25,11 @@ h3 {
   vertical-align: middle;
 }
 
+.list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 .wrap div {
   position: relative;
   margin: 30px 0;
@@ -55,6 +60,10 @@ input[type=text] {
   color: white;
 }
 
+input::placeholder {
+  color: #f5f5f5;
+}
+
 input[type=text], focus {
   outline: none;
 }
@@ -64,19 +73,19 @@ input[type=text], focus {
   text-decoration: none;
 }
 
+.list-item span {
+  padding-right: 5px;
+}
+
 .list-item:hover {
   border-bottom: 2px dotted white;
   cursor: pointer;
 }
 
-.list-item-attr {
-  padding-right: 5px;
-}
-
 button {
-  font-size: 20px;
-  width: 200px;
-  margin-right: 20px;
+  font-size: 18px;
+  width: 150px;
+  margin-right: 10px;
   color: white;
   shadow: none;
   border: 1px dotted white;

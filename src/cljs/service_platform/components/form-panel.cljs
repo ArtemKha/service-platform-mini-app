@@ -5,40 +5,39 @@
    [service-platform.actions :as actions]
    [service-platform.subs :as subs]))
 
-(defn form-item2 [label attr edit?]
+(defn form-item [edit?]
   (let [is-active (reagent/atom edit?)]
-    (fn [label attr]
+    (fn [_ form label item-key attributes]
       [:div
        [:label {:for label
                 :class (if @is-active "active" "")} label]
-       [:input (conj (or attr  {}) {:id label
-                                    :type "text"
-                                    :on-focus (fn []
-                                                (swap! is-active (fn [] true)))
-                                    :on-blur (fn []
-                                               (swap! is-active (fn [] true)))})]])))
+       [:input (conj attributes {:id label
+                                 :type :text
+                                 :name item-key
+                                 :required true
+                                 :max-length 250
+                                 :value (item-key @form)
+                                 :on-change (fn [e]
+                                              (swap! form assoc item-key (-> e .-target .-value)))
+                                 :on-focus (fn []
+                                             (swap! is-active (fn [] true)))
+                                 :on-blur (fn []
+                                            (swap! is-active (fn [] true)))})]])))
 
-(defn select-by-id [applications id] 
-    (first
-     (filter (fn [it] (= (:id it) id)) applications)))
+(defn handle-submit [e id form]
+  (.preventDefault e)
+  (if id
+    (re-frame/dispatch [::actions/update-apllication id (dissoc @form :id)])
+    (re-frame/dispatch [::actions/create-apllication @form]))
+  (.assign js/location "#/"))
 
-(defn form-item [_ _ _ edit?]
-(let [is-active (reagent/atom edit?)]
-  (fn [form label item-key]
-    [:div
-     [:label {:for label
-              :class (if @is-active "active" "")} label]
-     [:input {:id label
-              :type :text
-              :name item-key
-              :required true
-              :value (item-key @form)
-              :on-change (fn [e]
-                           (swap! form assoc item-key (-> e .-target .-value)))
-              :on-focus (fn []
-                          (swap! is-active (fn [] true)))
-              :on-blur (fn []
-                         (swap! is-active (fn [] true)))}]])))
+(defn handle-delete [id]
+  (re-frame/dispatch [::actions/delete-apllication id])
+  (.assign js/location "#/"))
+
+(defn select-by-id [applications id]
+  (first
+   (filter (fn [it] (= (:id it) id)) applications)))
 
 (defn form-panel []
   (let [panel (re-frame/subscribe [::subs/panel])
@@ -51,15 +50,14 @@
        [:div {:class "wrap"}
         [:h1 "Service Platform"]
         [:h3 (str "Please, " (if id (str "edit application #" id) "create a new application"))]
-        [:form {:on-submit (fn [e]
-                             (.preventDefault e)
-                             (if id
-                               #(re-frame/dispatch [:update-apllication id (dissoc application :id)])
-                               #(re-frame/dispatch [::actions/create-apllication application])))}
-         [form-item form "Title" :title id]
-         [form-item form "Description" :description id]
-         [form-item form "Assignee" :assignee id]
-         [form-item form "Applicant" :applicant id]
-         (if id [form-item form "Date" :date id] [:div])
-         [:a {:href "#/"} [:button {:type :button} "Back"]] 
+        [:form {:on-submit #(handle-submit % id form)}
+         [form-item id form "Title" :title {}]
+         [form-item id form "Description" :description {}]
+         [form-item id form "Assignee" :assignee {}]
+         [form-item id form "Applicant" :applicant {}]
+         (when id
+           [form-item id form "Execution date" :date {:placeholder "dd/mm/yyyy"
+                                                      :pattern  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/20[0-2][0-9]"}])
+         [:a {:href "#/"} [:button {:type :button} "Back"]]
+         (when id [:button {:type :button :on-click #(handle-delete id)} "Remove"])
          [:button {:type :submit} "Save"]]]])))
