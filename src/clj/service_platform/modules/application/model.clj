@@ -1,4 +1,3 @@
-(ns service-platform.modules.application.model
-  (:require [toucan.models :refer [defmodel]]))
+(ns service-platform.modules.application.model)
 
-(defmodel Application :applications)
+(def Application :applications)

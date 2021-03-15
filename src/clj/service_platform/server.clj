@@ -5,8 +5,6 @@
             [system.components.endpoint :refer [new-endpoint]]
             [system.components.handler :refer [new-handler]]
             [system.components.middleware :refer [new-middleware]]
-            [toucan.models :as models]
-            [toucan.db :as db]
             [service-platform.modules.application.handler :refer [application-routes]]
             [system.components.jetty :refer [new-web-server]]
             [service-platform.routes :refer [home-routes]]
@@ -19,12 +17,6 @@
    :options {:ui {:validatorUrl nil}
              :data {:info {:version "1.0.0", :title "Service platform – Restful API"}}}})
 
-(def db-spec
-  {:dbtype "postgres"
-   :dbname "service-db"
-   :user "postgres"
-   :password "1234"})
-
 (defn app-system [config]
   (component/system-map
    :site-middleware (new-middleware {:middleware (:site-middleware config)})
@@ -35,9 +27,6 @@
    :http (-> (new-web-server (:http-port config))
              (component/using [:handler]))
    :server-info (server-info (:http-port config))))
-
-(db/set-default-db-connection! db-spec)
-(models/set-root-namespace! 'service-platform.models)
 
 (defn -main [& _]
   (let [config (config)]

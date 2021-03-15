@@ -1,25 +1,25 @@
 (ns service-platform.modules.application.repository
-  (:require [toucan.db :as db]
-            [ring.util.http-response :refer [ok not-found created]]
-            [service-platform.modules.application.model :refer [Application]]
-            [service-platform.utils :refer [length-in-range?]]))
+  (:require
+   [service_platform.db :as s-db]
+   [ring.util.http-response :refer [ok not-found created]]
+   [service-platform.modules.application.model :refer [Application]]
+   [service-platform.utils :refer [length-in-range?]]))
 
 ;; TODO: validate input
 (defn valid? [str]
   (length-in-range? 1 255 str))
 
 ;; Create
-(defn id->created [id]
-  (created (str "/applications/" id) {:id id}))
+(defn id->created [application]
+  (created (str "/applications/" (:id application)) application))
 
 (defn create-application-handler [create-application-req]
-  (-> (db/insert! Application create-application-req)
-      :id
+  (-> (s-db/insert! Application create-application-req)
       id->created))
 
 ;; Get All
 (defn get-applications-handler []
-  (ok (db/select Application)))
+  (ok (s-db/select Application)))
 
 ;; Get By Id
 (defn application->response [application]
@@ -28,15 +28,15 @@
     (not-found)))
 
 (defn get-application-handler [application-id]
-  (-> (Application application-id)
+  (-> (s-db/select-by-id Application application-id)
       application->response))
 
 ;; Update
 (defn update-application-handler [id update-application-req]
-  (db/update! Application id update-application-req)
+  (s-db/update! Application id update-application-req)
   (ok))
 
 ;; Delete
 (defn delete-application-handler [application-id]
-  (db/delete! Application :id application-id)
+  (s-db/delete! Application application-id)
   (ok))

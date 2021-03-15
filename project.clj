@@ -21,7 +21,6 @@
                  [clj-commons/secretary "1.2.4"]
                  [prismatic/schema "1.1.9"]
                  [ring/ring-jetty-adapter "1.6.3"]
-                 [toucan "1.1.9"]
                  [cljs-ajax "0.8.1"]
                  [day8.re-frame/http-fx "0.2.3"]
                  [metosin/compojure-api "2.0.0-alpha26"]
