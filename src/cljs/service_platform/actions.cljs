@@ -4,7 +4,7 @@
             [service-platform.events :as events]
             [re-frame.core :refer [reg-event-fx]]))
 
-(def application-path "http://localhost:10555/api/applications")
+(def application-path "http://localhost:8080/api/applications")
 
 (defn generate-form-data [params]
   (let [form-data (js/FormData.)]

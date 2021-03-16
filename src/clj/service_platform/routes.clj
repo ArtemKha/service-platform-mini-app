@@ -6,7 +6,7 @@
 
 (defn home-routes [endpoint]
   (routes
-   (GET "/" _
+   (GET "/testapp" _
      (-> "public/index.html"
          io/resource
          io/input-stream
