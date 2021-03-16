@@ -1,4 +1,4 @@
-(ns service_platform.db
+(ns service-platform.service-db
   (:require [service-platform.common :as common]))
 
 (def initial-applications [{:id 1

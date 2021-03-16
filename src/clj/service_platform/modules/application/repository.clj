@@ -1,5 +1,5 @@
 (ns service-platform.modules.application.repository
-  (:require [service_platform.db :as s-db]
+  (:require [service-platform.service-db :as s-db]
             [ring.util.http-response :refer [ok not-found created]]
             [service-platform.modules.application.model :refer [Application]]))
 
