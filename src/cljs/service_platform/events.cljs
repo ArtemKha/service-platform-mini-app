@@ -13,9 +13,11 @@
  (fn [db [_ response]]
    (assoc db :applications (:body response))))
 
-(re-frame/reg-event-db
- ::on-bad-response (fn [db [_ _]]
-                     (assoc db :applications [])))
+(re-frame/reg-event-fx
+ ::on-bad-response (fn [_ [_ response]]
+                     (js/alert (str
+                                "Bad request: "
+                                (get-in response [:response :body] "Unknown error.")))))
 
 (re-frame/reg-event-db
  ::on-create-apllication

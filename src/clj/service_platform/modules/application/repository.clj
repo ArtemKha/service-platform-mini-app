@@ -1,13 +1,9 @@
 (ns service-platform.modules.application.repository
   (:require [service_platform.db :as s-db]
             [ring.util.http-response :refer [ok not-found created]]
-            [service-platform.modules.application.model :refer [Application]]
-            [service-platform.utils :refer [length-in-range?]]))
+            [service-platform.modules.application.model :refer [Application]]))
 
-;; TODO: validate input
-(defn valid? [str]
-  (length-in-range? 1 255 str))
-
+;; TODO: move http-response to handler (proper layer separation)
 ;; Create
 (defn id->created [application]
   (created (str "/applications/" (:id application)) application))

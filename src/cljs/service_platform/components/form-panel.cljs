@@ -1,6 +1,7 @@
 (ns service-platform.components.form-panel
   (:require
    [reagent.core :as reagent]
+   [service-platform.common :as common]
    [re-frame.core :as re-frame]
    [service-platform.actions :as actions]
    [service-platform.subs :as subs]))
@@ -57,7 +58,7 @@
          [form-item id form "Applicant" :applicant {}]
          (when id
            [form-item id form "Execution date" :date {:placeholder "dd/mm/yyyy"
-                                                      :pattern  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/20[0-2][0-9]"}])
+                                                      :pattern  common/date-pattern}])
          [:a {:href "#/"} [:button {:type :button} "Back"]]
          (when id [:button {:type :button :on-click #(handle-delete id)} "Remove"])
          [:button {:type :submit} "Save"]]]])))

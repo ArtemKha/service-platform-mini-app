@@ -22,6 +22,7 @@
                  [prismatic/schema "1.1.9"]
                  [ring/ring-jetty-adapter "1.6.3"]
                  [cljs-ajax "0.8.1"]
+                 [com.novemberain/validateur "2.5.0"]
                  [day8.re-frame/http-fx "0.2.3"]
                  [metosin/compojure-api "2.0.0-alpha26"]
                  [org.postgresql/postgresql "42.2.4"]
