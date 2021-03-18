@@ -57,8 +57,9 @@
          [form-item id form "Assignee" :assignee {}]
          [form-item id form "Applicant" :applicant {}]
          (when id
-           [form-item id form "Execution date" :date {:placeholder "dd/mm/yyyy"
-                                                      :pattern  common/date-pattern}])
+           [form-item id form "Execution date" :date {:title (str "Use pattern for date: " common/date-pattern-client)
+                                                      :placeholder "dd/mm/yyyy"
+                                                      :pattern  common/date-pattern-client}])
          [:a {:href "#/"} [:button {:type :button} "Back"]]
          (when id [:button {:type :button :on-click #(handle-delete id)} "Remove"])
          [:button {:type :submit} "Save"]]]])))
