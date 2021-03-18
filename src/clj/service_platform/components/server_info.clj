@@ -4,7 +4,7 @@
 (defrecord ServerInfoPrinter [http-port]
   component/Lifecycle
   (start [component]
-    (println "Started service-platform on" (str "http://localhost:" http-port))
+    (println "Started service-platform on" (str "http://localhost:" http-port "/testapp"))
     component)
   (stop [component]
     component))
